@@ -1,7 +1,7 @@
-// 文章详情页路由组件，对应路径 `/posts/[slug]`
+// 文章详情页路由组件，对应路径 `/posts/...slug`
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-// 读取本地 `_posts` 目录中的 Markdown/MDX 文章
+// 读取本地 `page` 目录中的 Markdown/MDX 文章
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { CMS_NAME } from "@/lib/constants";
 // 布局与展示相关组件
@@ -15,8 +15,10 @@ import { PostHeader } from "@/app/_components/post-header";
 export default async function Post(props: Params) {
   // 通过 `generateStaticParams` 传入的动态路由参数
   const params = await props.params;
+  const slug = Array.isArray(params.slug) ? params.slug.join("/") : params.slug;
+
   // 根据 slug 从本地 Markdown/MDX 文件中读取文章
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlug(slug);
 
   // 如果找不到对应文章，则返回 404 页面
   if (!post) {
@@ -48,17 +50,18 @@ export default async function Post(props: Params) {
   );
 }
 
-// 路由参数类型定义，约定 `[slug]` 为字符串
+// 路由参数类型定义，约定 `[...slug]` 为多段路径（支持子目录）
 type Params = {
   params: Promise<{
-    slug: string;
+    slug: string[] | string;
   }>;
 };
 
 // 为每篇文章动态生成 `<head>` 中的 SEO 信息
 export async function generateMetadata(props: Params): Promise<Metadata> {
   const params = await props.params;
-  const post = getPostBySlug(params.slug);
+  const slug = Array.isArray(params.slug) ? params.slug.join("/") : params.slug;
+  const post = getPostBySlug(slug);
 
   // 找不到文章时同样返回 404
   if (!post) {
@@ -76,12 +79,12 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
   };
 }
 
-// 预定义所有可静态生成的 `[slug]` 路径
+// 预定义所有可静态生成的 `[...slug]` 路径
 export async function generateStaticParams() {
   const posts = getAllPosts();
 
-  // 返回形如 { slug: 'hello-world' } 的对象数组
+  // 返回形如 { slug: ['about', 'aa'] } 的对象数组
   return posts.map((post) => ({
-    slug: post.slug,
+    slug: post.slug.split("/"),
   }));
 }
