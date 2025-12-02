@@ -1,0 +1,25 @@
+// 博客文章在应用中的标准数据结构
+import { type Author } from "./author";
+
+export type Post = {
+  // 文章唯一标识，对应文件名（不含 .md）
+  slug: string;
+  // 标题
+  title: string;
+  // 发布时间，ISO 字符串
+  date: string;
+  // 封面图路径
+  coverImage: string;
+  // 作者信息
+  author: Author;
+  // 首页 / 列表中使用的摘要
+  excerpt: string;
+  // Open Graph 使用的分享图
+  ogImage: {
+    url: string;
+  };
+  // Markdown 正文内容（未转换为 HTML 之前）
+  content: string;
+  // 是否处于预览模式，用于控制顶部 Alert 展示
+  preview?: boolean;
+};

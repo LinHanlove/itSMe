@@ -1,0 +1,79 @@
+// 应用根布局：包裹所有页面，负责全局样式、字体、Footer、主题切换等
+import Footer from "@/app/_components/footer";
+import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import cn from "classnames";
+import { ThemeSwitcher } from "./_components/theme-switcher";
+
+// 全局样式（Tailwind 入口）
+import "./globals.css";
+
+// 使用 Next.js 内置的 Inter 字体
+const inter = Inter({ subsets: ["latin"] });
+
+// 默认全局的 SEO 信息（标题、描述、OG 图）
+export const metadata: Metadata = {
+  title: `Next.js Blog Example with ${CMS_NAME}`,
+  description: `A statically generated blog example using Next.js and ${CMS_NAME}.`,
+  openGraph: {
+    images: [HOME_OG_IMAGE_URL],
+  },
+};
+
+// App Router 的根布局组件，所有页面都会被包裹在这里
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <head>
+        {/* 各种 favicon 与 PWA 相关配置 */}
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <link
+          rel="mask-icon"
+          href="/favicon/safari-pinned-tab.svg"
+          color="#000000"
+        />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta
+          name="msapplication-config"
+          content="/favicon/browserconfig.xml"
+        />
+        <meta name="theme-color" content="#000" />
+        {/* 博客 RSS 订阅地址 */}
+        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+      </head>
+      <body
+        className={cn(inter.className, "dark:bg-slate-900 dark:text-slate-400")}
+      >
+        {/* 负责注入避免 FOUC 的脚本 + 主题切换按钮 */}
+        <ThemeSwitcher />
+        {/* 主体内容区域，最小高度撑满一屏 */}
+        <div className="min-h-screen">{children}</div>
+        {/* 底部统一 Footer */}
+        <Footer />
+      </body>
+    </html>
+  );
+}

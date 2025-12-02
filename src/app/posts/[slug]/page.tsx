@@ -1,0 +1,87 @@
+// 文章详情页路由组件，对应路径 `/posts/[slug]`
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+// 读取本地 `_posts` 目录中的 Markdown/MDX 文章
+import { getAllPosts, getPostBySlug } from "@/lib/api";
+import { CMS_NAME } from "@/lib/constants";
+// 布局与展示相关组件
+import Alert from "@/app/_components/alert";
+import Container from "@/app/_components/container";
+import Header from "@/app/_components/header";
+import { PostBody } from "@/app/_components/post-body";
+import { PostHeader } from "@/app/_components/post-header";
+
+// 文章详情页服务端组件
+export default async function Post(props: Params) {
+  // 通过 `generateStaticParams` 传入的动态路由参数
+  const params = await props.params;
+  // 根据 slug 从本地 Markdown/MDX 文件中读取文章
+  const post = getPostBySlug(params.slug);
+
+  // 如果找不到对应文章，则返回 404 页面
+  if (!post) {
+    return notFound();
+  }
+
+  // 将原始 Markdown/MDX 字符串传递给 `PostBody`，由 MDXRemote 负责解析渲染
+  const content = post.content || "";
+
+  return (
+    // 使用全局布局下的主内容区域
+    <main>
+      <Alert preview={post.preview} />
+      <Container>
+        <Header />
+        <article className="mb-32">
+          {/* 文章头部区域：标题 / 封面图 / 作者 / 日期 */}
+          <PostHeader
+            title={post.title}
+            coverImage={post.coverImage}
+            date={post.date}
+            author={post.author}
+          />
+          {/* 文章正文区域：渲染 Markdown/MDX 内容 */}
+          <PostBody content={content} />
+        </article>
+      </Container>
+    </main>
+  );
+}
+
+// 路由参数类型定义，约定 `[slug]` 为字符串
+type Params = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
+
+// 为每篇文章动态生成 `<head>` 中的 SEO 信息
+export async function generateMetadata(props: Params): Promise<Metadata> {
+  const params = await props.params;
+  const post = getPostBySlug(params.slug);
+
+  // 找不到文章时同样返回 404
+  if (!post) {
+    return notFound();
+  }
+
+  const title = `${post.title} | Next.js Blog Example with ${CMS_NAME}`;
+
+  return {
+    title,
+    openGraph: {
+      title,
+      images: [post.ogImage.url],
+    },
+  };
+}
+
+// 预定义所有可静态生成的 `[slug]` 路径
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+
+  // 返回形如 { slug: 'hello-world' } 的对象数组
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
