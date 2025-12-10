@@ -36,7 +36,7 @@ export default function Footer() {
             <Icon icon="simple-icons:juejin" className="text-lg" />
             Juejin
           </a>
-          <a href="/wechat" className="flex items-center gap-1">
+          <a href="posts/wechat" className="flex items-center gap-1">
             <Icon icon="ic:baseline-wechat" className="text-lg" />
             Wechat
           </a>

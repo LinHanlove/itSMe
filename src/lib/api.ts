@@ -1,14 +1,10 @@
-// 与本地 Markdown 博客文章相关的工具函数
-import { Post } from "@/interfaces/post";
+import { Post } from "@/app/types";
 import fs from "fs";
 import matter from "gray-matter";
 import { join } from "path";
 
-// `page` 目录存放所有 Markdown / MDX 文章文件
 const postsDirectory = join(process.cwd(), "/src/page");
 
-// 递归读取 `page` 目录下的所有 Markdown / MDX 文件，返回不带扩展名的 slug，
-// 并用 `/` 表示子目录层级，例如：`about/aa`、`blog/2025/first`
 export function getPostSlugs(): string[] {
   const exts = [".md", ".mdx"];
 
@@ -41,7 +37,6 @@ export function getPostSlugs(): string[] {
 
 // 根据 slug 读取单篇文章的元数据和正文内容
 export function getPostBySlug(slug: string) {
-  // 支持传入 'about/aa' 或 'about/aa.md(x)'，都规整为不带扩展名的 slug
   const realSlug = slug.replace(/\.(md|mdx)$/, "");
 
   const exts = [".md", ".mdx"];

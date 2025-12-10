@@ -1,14 +1,8 @@
-// 文章详情页路由组件，对应路径 `/posts/...slug`
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-// 读取本地 `page` 目录中的 Markdown/MDX 文章
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { CMS_NAME } from "@/lib/constants";
-// 布局与展示相关组件
-import Container from "@/app/components/Layout/Container";
-import Header from "@/app/components/Layout/Header";
-import { PostBody } from "@/app/components/Post/post-body";
-import { PostHeader } from "@/app/components/Post/post-header";
+import { PostBody } from "@/app/components/Layout/PostBody";
 
 // 文章详情页服务端组件
 export default async function Post(props: Params) {
@@ -29,17 +23,7 @@ export default async function Post(props: Params) {
 
   return (
     <main>
-      <article className="mb-32">
-        {/* 文章头部区域：标题 / 封面图 / 作者 / 日期 */}
-        <PostHeader
-          title={post.title}
-          coverImage={post.coverImage}
-          date={post.date}
-          author={post.author}
-        />
-        {/* 文章正文区域：渲染 Markdown/MDX 内容 */}
-        <PostBody content={content} />
-      </article>
+      <PostBody content={content} />
     </main>
   );
 }

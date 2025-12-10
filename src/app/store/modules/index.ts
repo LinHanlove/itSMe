@@ -1,5 +1,5 @@
+"use client";
 import { PROJECT_STORAGE_KEY } from "@/app/constants";
-import { UseUserInfo } from "@/app/types";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -10,7 +10,6 @@ export const useUserInfo = create(
     }),
     {
       name: PROJECT_STORAGE_KEY,
-      storage: createJSONStorage(() => localStorage),
     }
   )
 );

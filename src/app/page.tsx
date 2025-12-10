@@ -1,5 +1,5 @@
 import { getPostBySlug } from "@/lib/api";
-import { PostBody } from "@/app/components/Post/post-body";
+import { PostBody } from "@/app/components/Layout/PostBody";
 
 export default function Index() {
   // 预留一个专门作为首页的 Markdown/MDX 文件，例如：page/home.md 或 page/home.mdx

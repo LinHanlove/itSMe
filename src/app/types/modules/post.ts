@@ -1,6 +1,3 @@
-// 博客文章在应用中的标准数据结构
-import { type Author } from "./author";
-
 export type Post = {
   // 文章唯一标识，对应文件名（不含 .md）
   slug: string;
@@ -22,4 +19,12 @@ export type Post = {
   content: string;
   // 是否处于预览模式，用于控制顶部 Alert 展示
   preview?: boolean;
+};
+
+// 作者信息结构
+export type Author = {
+  // 作者显示名称
+  name: string;
+  // 作者头像图片路径
+  picture: string;
 };
