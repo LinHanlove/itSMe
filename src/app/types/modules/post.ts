@@ -5,6 +5,8 @@ export interface Post {
   title: string;
   // 发布时间，ISO 字符串
   date: string;
+  // 月份
+  month: string;
   // Markdown 正文内容（未转换为 HTML 之前）
   content: string;
   // 文章分组
@@ -13,10 +15,18 @@ export interface Post {
   duration: string;
 }
 
-// 作者信息结构
-export type Author = {
-  // 作者显示名称
-  name: string;
-  // 作者头像图片路径
-  picture: string;
+/**
+ * @type 列表
+ */
+export type PostListItem = {
+  year: string;
+  posts: Post[];
+};
+
+/**
+ * @type 文章集合
+ */
+export type PostsMap = {
+  type: string;
+  list: PostListItem[];
 };

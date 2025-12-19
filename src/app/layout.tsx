@@ -81,7 +81,7 @@ export default function RootLayout({
             <div className="min-h-screen prose">{children}</div>
           </Container>
           <Footer />
-          <Cursor />
+          {/* <Cursor /> */}
         </main>
       </body>
     </html>

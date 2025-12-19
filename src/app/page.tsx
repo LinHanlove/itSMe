@@ -1,4 +1,4 @@
-import { getPostBySlug } from "@/app/utils/generateRoutes";
+import { getPostBySlug } from "@/app/utils/modules/generateRoutes";
 import { PostBody } from "@/app/components/Layout/PostBody";
 
 export default function Index() {
