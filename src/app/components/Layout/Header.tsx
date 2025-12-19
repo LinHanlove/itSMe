@@ -1,6 +1,6 @@
 import Logo from "@/app/components/ui/Logo";
 import NavBar from "@/app/components/Layout/Navbar";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 
 export default function Header() {
   return (

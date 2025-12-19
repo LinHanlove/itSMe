@@ -7,6 +7,8 @@ type Props = {
 };
 
 export function PostBody({ content }: Props) {
+  console.log(content);
+
   return (
     <div className="max-w-2xl mx-auto">
       <div>

@@ -4,14 +4,14 @@ import { Inter } from "next/font/google";
 import cn from "classnames";
 
 // 全局样式（Tailwind 入口）
-import "@/app/assets/style/globals.css";
+import "@/app/assets/style/tailwind.css";
 import "@/app/assets/style/main.css";
 import "@/app/assets/style/prose.css";
+
 import Header from "./components/Layout/Header";
 import Container from "./components/Layout/Container";
 import Footer from "./components/Layout/Footer";
 import { TargetCursor } from "./components/ui/TargetCursor";
-import Cursor from "./components/ui/Cursor";
 
 // 使用 Next.js 内置的 Inter 字体
 const inter = Inter({ subsets: ["latin"] });
@@ -79,11 +79,10 @@ export default function RootLayout({
           <Header />
           <Container>
             {/* 主体内容区域，最小高度撑满一屏 */}
-            <div className="min-h-screen prose">{children}</div>
+            <div className="min-h-screen prose prose-zinc ">{children}</div>
           </Container>
           <Footer />
           <TargetCursor />
-          {/* <Cursor /> */}
         </main>
       </body>
     </html>

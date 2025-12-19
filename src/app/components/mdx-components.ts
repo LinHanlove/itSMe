@@ -2,3 +2,4 @@
 // 约定：这里导出的名字，就是在 Markdown/MDX 里使用的组件名
 export { default as LinkComponent } from "./ui/LinkComponent";
 export { default as Image } from "./ui/Image";
+export { default as Logo } from "./ui/Logo";

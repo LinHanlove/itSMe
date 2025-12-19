@@ -10,6 +10,13 @@ interface TargetCursorProps {
   onCursorStateChange?: (isOverTarget: boolean) => void;
 }
 
+const styles = [
+  "color: #FF6B00",
+  "font-size: 20px",
+  "font-family: sans-serif",
+  "padding: 10px 20px",
+].join(";");
+
 const CursorStyles = styled.div`
   @media screen and (max-width: 480px) {
     .cursor-container,
@@ -60,6 +67,8 @@ export const TargetCursor = memo(
     cornerAnimationDuration = 0.15,
     onCursorStateChange,
   }: TargetCursorProps) => {
+    console.log("%cMade by https://linhan.atomnotion.com ", styles);
+
     // Refs
     const cursorContainerRef = useRef<HTMLDivElement>(null);
     const bigBallRef = useRef<HTMLDivElement>(null);
@@ -75,9 +84,6 @@ export const TargetCursor = memo(
 
     // 用于记录上次检测到的目标元素
     const lastTargetRef = useRef<Element | null>(null);
-
-    // 节流控制
-    const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
 
     // 检查鼠标位置下的元素是否匹配选择器
     const checkElementUnderMouse = useCallback(
