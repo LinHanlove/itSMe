@@ -1,3 +1,4 @@
+@import "tailwindcss";
 .dark .shiki,
 .dark .shiki span {
   color: var(--s-dark, inherit);

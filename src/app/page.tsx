@@ -6,10 +6,8 @@ export default function Index() {
   const content = homePost.content || "";
 
   return (
-    <main>
-      <article className="py-12">
-        <PostBody content={content} />
-      </article>
+    <main className="py-12 prose">
+      <PostBody content={content} />
     </main>
   );
 }

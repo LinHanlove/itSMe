@@ -7,6 +7,7 @@ import cn from "classnames";
 import "@/app/assets/style/tailwind.css";
 import "@/app/assets/style/main.css";
 import "@/app/assets/style/prose.css";
+import "@/app/assets/style/markdown.css";
 
 import Header from "./components/Layout/Header";
 import Container from "./components/Layout/Container";
@@ -79,7 +80,7 @@ export default function RootLayout({
           <Header />
           <Container>
             {/* 主体内容区域，最小高度撑满一屏 */}
-            <div className="min-h-screen prose prose-zinc ">{children}</div>
+            <div className="min-h-screen prose">{children}</div>
           </Container>
           <Footer />
           <TargetCursor />
