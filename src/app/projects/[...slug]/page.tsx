@@ -27,12 +27,10 @@ const getSlug = async (props: Params) => {
 // 文章详情页服务端组件
 export default async function Post(props: Params) {
   const post = await getSlug(props);
-  // 将原始 Markdown/MDX 字符串传递给 `PostBody`，由 MDXRemote 负责解析渲染
-  const content = post.content || "";
 
   return (
     <main>
-      <PostBody content={content} />
+      <PostBody post={post} />
     </main>
   );
 }

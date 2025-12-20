@@ -1,4 +1,5 @@
 import { Post } from "@/app/types";
+import dayjs from "dayjs";
 import fs from "fs";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
@@ -57,7 +58,13 @@ export function getPostBySlug(slug: string) {
     const candidate = join(postsDirectory, `${realSlug}${ext}`);
     if (fs.existsSync(candidate)) {
       const { data, content } = matter(fs.readFileSync(candidate, "utf-8"));
-      return { ...data, slug: realSlug, content } as Post;
+      return {
+        ...data,
+        slug: realSlug,
+        content,
+        date: dayjs(data.date).format("YYYY-MM-DD HH:mm:ss"),
+        month: dayjs(data.date).format("MM-DD"),
+      } as Post;
     }
   }
 

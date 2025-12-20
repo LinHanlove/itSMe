@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 
 export default function BlogPage() {
   // 获取所有文章
-  const posts = getAllPosts("interesting");
+  const posts = getAllPosts("blog");
 
   // 按 type 分组
   const groupedPosts = posts.reduce<Record<string, Post[]>>((acc, post) => {
@@ -21,8 +21,6 @@ export default function BlogPage() {
       const year = dayjs(post.date).format("YYYY");
       (acc[year] ??= []).push({
         ...post,
-        date: dayjs(post.date).format("YYYY-MM-DD HH:mm:ss"),
-        month: dayjs(post.date).format("MM-DD"),
       });
       return acc;
     }, {});

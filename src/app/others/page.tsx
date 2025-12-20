@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 
 export default function BlogPage() {
   // 获取所有文章
-  const posts = getAllPosts("blog");
+  const posts = getAllPosts("others");
 
   // 按 type 分组
   const groupedPosts = posts.reduce<Record<string, Post[]>>((acc, post) => {

@@ -15,7 +15,7 @@ export default function LinkComponent(props: Props) {
           <a href={props.link} target="_blank">
             <span className="flex items-center gap-1">
               {props.icon && <Icon icon={props.icon} />}
-              {props.title && <span>{props.title}</span>}
+              {props.title && <code>{props.title}</code>}
             </span>
           </a>
         </span>

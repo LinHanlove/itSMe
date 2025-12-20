@@ -22,7 +22,7 @@ export default function BlogContainer({ posts }: Props) {
   const list = posts.find((x) => x.type === activeMenu)?.list;
 
   useEffect(() => {
-    setActiveMenu(activeMenu ? activeMenu : menu[0]);
+    setActiveMenu(menu[0]);
   }, []);
 
   return (

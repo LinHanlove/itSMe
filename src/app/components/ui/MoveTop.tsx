@@ -8,7 +8,7 @@ export default function MoveTop() {
   const scroll = useScroll(() => document);
 
   const visible = useMemo(() => {
-    return (scroll?.top ?? 0) >= 100;
+    return (scroll?.top ?? 0) >= 200;
   }, [scroll?.top]);
 
   const onBackTop = () => {
