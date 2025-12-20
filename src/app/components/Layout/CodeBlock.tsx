@@ -1,18 +1,93 @@
-import { highlightCode } from "@/app/utils/modules/shiki";
+"use client";
+
+import { useRef, useState } from "react";
+import { Icon } from "@iconify/react";
 
 type Props = {
-  children: string;
-  className?: string;
+  html: string;
+  language?: string;
 };
 
-export default async function CodeBlock({ children, className }: Props) {
-  const language = className?.replace("language-", "");
-  const html = await highlightCode(children.trim(), language);
+const LANG_MAP: Record<string, string> = {
+  javascript: "js",
+  typescript: "ts",
+  tsx: "tsx",
+  jsx: "jsx",
+  vue: "vue",
+  css: "css",
+  html: "html",
+  json: "json",
+};
+
+export default function CodeBlock({ html, language }: Props) {
+  const preRef = useRef<HTMLDivElement>(null);
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    if (!preRef.current) return;
+
+    await navigator.clipboard.writeText(preRef.current.innerText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }
+
+  const label = language ? LANG_MAP[language] ?? language : null;
 
   return (
-    <div
-      className="my-6 rounded-lg overflow-x-auto"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <div className="relative group my-6">
+      {/* 左：语言 */}
+      {label && (
+        <div
+          className="
+            absolute left-3 top-3 z-10
+            rounded-md px-2 py-0.5
+            text-[11px] font-mono uppercase tracking-wide
+            bg-white text-neutral-700
+            dark:bg-neutral-700/80 dark:text-neutral-200
+            backdrop-blur
+            opacity-0 group-hover:opacity-100
+            transition
+          "
+        >
+          {label}
+        </div>
+      )}
+
+      {/* 右：Copy */}
+      <button
+        onClick={handleCopy}
+        className={`
+          absolute right-3 top-3 z-10
+          flex items-center gap-1.5
+          rounded-md px-2 py-1 text-xs
+          transition
+          ${
+            copied
+              ? "bg-emerald-600 text-white"
+              : "bg-neutral-800/80 text-white"
+          }
+          opacity-0 group-hover:opacity-100
+        `}
+      >
+        {copied ? (
+          <>
+            <Icon icon="mdi:check" width="14" />
+            Copied
+          </>
+        ) : (
+          <>
+            <Icon icon="mdi:content-copy" width="14" />
+            Copy
+          </>
+        )}
+      </button>
+
+      {/* Code */}
+      <div
+        ref={preRef}
+        className="shiki-wrapper"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </div>
   );
 }

@@ -48,14 +48,16 @@ html.dark .shiki .line:hover {
    Inline Code
    ====================================================== */
 
-.prose p > code {
+.prose p > code,
+.prose li > code {
   padding: 0.15em 0.4em;
   border-radius: 0.375rem;
   font-size: 0.9em;
   background-color: rgba(100, 116, 139, 0.12);
 }
 
-html.dark .prose p > code {
+html.dark .prose p > code,
+html.dark .prose li > code {
   background-color: rgba(148, 163, 184, 0.18);
 }
 
@@ -168,4 +170,19 @@ h6:hover .header-anchor {
 
 .code-wrap .line {
   white-space: break-spaces;
+}
+.shiki-wrapper {
+  position: relative;
+}
+
+.shiki-wrapper pre {
+  margin: 0;
+}
+.group:hover button {
+  backdrop-filter: blur(6px);
+}
+
+.shiki-wrapper pre {
+  margin: 0;
+  padding-top: 2.5rem; /* 给语言 + copy 留空间 */
 }

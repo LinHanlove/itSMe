@@ -3,6 +3,7 @@ import CodeBlock from "./Layout/CodeBlock";
 import LinkComponent from "./ui/LinkComponent";
 import Image from "./ui/Image";
 import Logo from "./ui/Logo";
+import { highlightCode } from "../utils/modules/shiki";
 
 // 行内 code
 const InlineCode = (props: React.HTMLAttributes<HTMLElement>) => (
@@ -13,15 +14,18 @@ const InlineCode = (props: React.HTMLAttributes<HTMLElement>) => (
 );
 
 // 块级 code
-const Pre = (props: any) => {
+const Pre = async (props: any) => {
   const child = props.children;
-  if (child && typeof child === "object" && "props" in child) {
-    return (
-      <CodeBlock className={child.props.className}>
-        {child.props.children}
-      </CodeBlock>
-    );
+
+  if (child?.props?.children) {
+    const code = child.props.children.trim();
+    const lang = child.props.className?.replace("language-", "");
+
+    const html = await highlightCode(code, lang);
+
+    return <CodeBlock html={html} language={lang} />;
   }
+
   return <pre {...props} />;
 };
 

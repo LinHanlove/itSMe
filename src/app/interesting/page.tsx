@@ -1,5 +1,43 @@
-import React from "react";
+import { getAllPosts } from "@/app/utils/modules/generateRoutes";
+import { Post } from "../types";
+import BlogContainer from "../components/Layout/BlogContainer";
+import dayjs from "dayjs";
 
-export default function Blog() {
-  return <div>Blog</div>;
+export default function BlogPage() {
+  // 获取所有文章
+  const posts = getAllPosts("interesting");
+
+  // 按 type 分组
+  const groupedPosts = posts.reduce<Record<string, Post[]>>((acc, post) => {
+    const type = post.type;
+    (acc[type] ??= []).push(post);
+    return acc;
+  }, {});
+
+  // 按【年份】分组
+  const list = Object.entries(groupedPosts).map(([type, posts]) => {
+    // 年份字典
+    const byYear = posts.reduce<Record<string, Post[]>>((acc, post) => {
+      const year = dayjs(post.date).format("YYYY");
+      (acc[year] ??= []).push({
+        ...post,
+        date: dayjs(post.date).format("YYYY-MM-DD HH:mm:ss"),
+        month: dayjs(post.date).format("MM-DD"),
+      });
+      return acc;
+    }, {});
+
+    // 按年份倒序排列
+    const yearList = Object.entries(byYear)
+      .sort(([a], [b]) => b.localeCompare(a)) // 2023 > 2022
+      .map(([year, yearPosts]) => ({ year, posts: yearPosts }));
+
+    return { type, list: yearList };
+  });
+
+  return (
+    <>
+      <BlogContainer posts={list} />
+    </>
+  );
 }

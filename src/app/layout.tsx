@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";
 
-// 全局样式（Tailwind 入口）
 import "@/app/assets/style/tailwind.css";
 import "@/app/assets/style/main.css";
 import "@/app/assets/style/prose.css";
@@ -13,6 +12,7 @@ import Header from "./components/Layout/Header";
 import Container from "./components/Layout/Container";
 import Footer from "./components/Layout/Footer";
 import { TargetCursor } from "./components/ui/TargetCursor";
+import MoveTop from "./components/ui/MoveTop";
 
 // 使用 Next.js 内置的 Inter 字体
 const inter = Inter({ subsets: ["latin"] });
@@ -84,6 +84,7 @@ export default function RootLayout({
           </Container>
           <Footer />
           <TargetCursor />
+          <MoveTop />
         </main>
       </body>
     </html>
