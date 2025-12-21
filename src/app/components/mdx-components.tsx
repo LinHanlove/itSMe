@@ -1,4 +1,6 @@
-import type { MDXComponents } from "mdx/types";
+import type { ComponentProps } from "react";
+import { MDXRemote } from "next-mdx-remote/rsc";
+
 import CodeBlock from "./Layout/CodeBlock";
 import LinkComponent from "./ui/LinkComponent";
 import Image from "./ui/Image";
@@ -7,8 +9,14 @@ import { highlightCode } from "../utils/modules/shiki";
 import { slugify } from "../utils";
 import { JSX } from "react/jsx-runtime";
 
-// 行内 code
-// InlineCode.tsx
+/**
+ * 🔹 MDX components 类型（正确方式）
+ */
+type MDXComponents = ComponentProps<typeof MDXRemote>["components"];
+
+/* =========================
+   Inline Code
+========================= */
 export function InlineCode(props: React.HTMLAttributes<HTMLElement>) {
   return (
     <code
@@ -25,7 +33,9 @@ export function InlineCode(props: React.HTMLAttributes<HTMLElement>) {
   );
 }
 
-// 块级 code
+/* =========================
+   Code Block
+========================= */
 const Pre = async (props: any) => {
   const child = props.children;
 
@@ -41,12 +51,9 @@ const Pre = async (props: any) => {
   return <pre {...props} />;
 };
 
-// 避免 <div> 被 <p> 包裹，解决 hydration 错误
-const P = (props: React.HTMLAttributes<HTMLDivElement>) => <div {...props} />;
-
-/**
- * @function 创建标题
- */
+/* =========================
+   Heading Factory
+========================= */
 const createHeading = (level: number) => {
   const Tag = `h${level}` as keyof JSX.IntrinsicElements;
 
@@ -62,13 +69,17 @@ const createHeading = (level: number) => {
   };
 };
 
+/* =========================
+   MDX Components
+========================= */
 export const mdxComponents: MDXComponents = {
-  // p: P,
   pre: Pre,
   code: InlineCode,
-  LinkComponent,
-  Image,
+
+  a: LinkComponent,
+  img: Image,
   Logo,
+
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
