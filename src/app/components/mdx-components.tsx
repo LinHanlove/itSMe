@@ -75,11 +75,9 @@ const createHeading = (level: number) => {
 export const mdxComponents: MDXComponents = {
   pre: Pre,
   code: InlineCode,
-
-  a: LinkComponent,
-  img: Image,
+  Image,
   Logo,
-
+  LinkComponent,
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
