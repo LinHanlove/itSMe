@@ -25,7 +25,6 @@ export const metadata: Metadata = {
   },
 };
 
-// App Router 的根布局组件，所有页面都会被包裹在这里
 export default function RootLayout({
   children,
 }: Readonly<{

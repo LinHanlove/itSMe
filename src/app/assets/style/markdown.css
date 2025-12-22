@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* ======================================================
-   Shiki Code Block
-   ====================================================== */
-
 .shiki {
   font-family: "DM Mono", "Input Mono", "Fira Code", monospace;
   font-size: 0.92em;
@@ -44,10 +40,6 @@ html.dark .shiki .line:hover {
   background-color: rgba(148, 163, 184, 0.08);
 }
 
-/* ======================================================
-   Inline Code
-   ====================================================== */
-
 .prose p > code,
 .prose li > code {
   padding: 0.15em 0.4em;
@@ -60,10 +52,6 @@ html.dark .prose p > code,
 html.dark .prose li > code {
   background-color: rgba(148, 163, 184, 0.18);
 }
-
-/* ======================================================
-   Prose Typography
-   ====================================================== */
 
 .prose {
   --fg-light: #888;
@@ -99,10 +87,6 @@ html.dark .prose {
   margin: 2em auto;
 }
 
-/* ======================================================
-   Images
-   ====================================================== */
-
 .prose img {
   width: 100%;
 }
@@ -113,10 +97,6 @@ html.dark .prose {
   margin: 2.6em 0;
   transform: scale(1.04);
 }
-
-/* ======================================================
-   Blockquote
-   ====================================================== */
 
 .prose blockquote {
   padding: 0.6em 1em;
@@ -133,10 +113,6 @@ html.dark .prose {
   content: none;
 }
 
-/* ======================================================
-   Headings Anchor
-   ====================================================== */
-
 a.header-anchor {
   float: left;
   margin-left: -1.2em;
@@ -145,10 +121,6 @@ a.header-anchor {
   opacity: 0;
   text-decoration: none;
 }
-
-/* ======================================================
-   Misc
-   ====================================================== */
 
 .prose em {
   font-style: italic;
@@ -175,5 +147,5 @@ a.header-anchor {
 
 .shiki-wrapper pre {
   margin: 0;
-  padding-top: 2.5rem; /* 给语言 + copy 留空间 */
+  padding-top: 2.5rem;
 }

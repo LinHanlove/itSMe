@@ -1,10 +1,10 @@
 import { createHighlighter, type Highlighter } from "shiki";
 
 declare global {
-  var __shikiHighlighter: Highlighter | undefined;
+  // 缓存 Promise
+  var __shikiHighlighterPromise: Promise<Highlighter> | undefined;
 }
 
-// 支持的语言
 const SUPPORTED_LANGS = [
   "javascript",
   "typescript",
@@ -21,32 +21,37 @@ const SUPPORTED_LANGS = [
   "sh",
 ];
 
-// 内置可用主题
 const THEMES = ["vitesse-dark", "vitesse-light"];
 
-export async function getShikiHighlighter(): Promise<Highlighter> {
-  if (!globalThis.__shikiHighlighter) {
-    globalThis.__shikiHighlighter = await createHighlighter({
+export function getShikiHighlighter(): Promise<Highlighter> {
+  if (!globalThis.__shikiHighlighterPromise) {
+    globalThis.__shikiHighlighterPromise = createHighlighter({
       langs: SUPPORTED_LANGS,
       themes: THEMES,
     });
   }
-  return globalThis.__shikiHighlighter;
+
+  return globalThis.__shikiHighlighterPromise;
 }
 
 export async function highlightCode(
   code: string,
   language?: string,
-  theme: string = "vitesse-dark"
+  theme: "vitesse-dark" | "vitesse-light" = "vitesse-dark"
 ) {
   const highlighter = await getShikiHighlighter();
-  const lang = SUPPORTED_LANGS.includes(language ?? "") ? language! : "text";
+
+  const lang = SUPPORTED_LANGS.includes(language ?? "")
+    ? (language as string)
+    : "text";
 
   try {
-    return highlighter.codeToHtml(code, { lang, theme });
+    return highlighter.codeToHtml(code, {
+      lang,
+      theme,
+    });
   } catch (err) {
-    console.error("[Shiki] 高亮失败，回退为纯文本：", err);
-    // fallback
+    console.error("[Shiki] highlight failed, fallback to plain text", err);
     return `<pre><code>${code}</code></pre>`;
   }
 }

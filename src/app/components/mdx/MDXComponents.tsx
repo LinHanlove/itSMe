@@ -1,0 +1,43 @@
+import type { ComponentProps } from "react";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { JSX } from "react/jsx-runtime";
+
+import CodeBlock from "../Layout/CodeBlock";
+import { highlightCode } from "@/app/utils/modules/shiki";
+import { slugify } from "@/app/utils";
+import LinkComponent from "../ui/LinkComponent";
+import Logo from "../ui/Logo";
+
+type MDXComponents = ComponentProps<typeof MDXRemote>["components"];
+
+const Pre = async (props: any) => {
+  const child = props.children;
+
+  if (child?.props?.children) {
+    const code = child.props.children.trim();
+    const lang = child.props.className?.replace("language-", "");
+
+    const html = await highlightCode(code, lang);
+    return <CodeBlock html={html} language={lang} />;
+  }
+
+  return <pre {...props} />;
+};
+
+const createHeading = (level: number) => {
+  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+  return ({ children }: { children: React.ReactNode }) => {
+    const id = slugify(String(children));
+    return <Tag id={id}>{children}</Tag>;
+  };
+};
+
+export const mdxComponents: MDXComponents = {
+  pre: Pre,
+  LinkComponent,
+  Logo,
+  h1: createHeading(1),
+  h2: createHeading(2),
+  h3: createHeading(3),
+  h4: createHeading(4),
+};
