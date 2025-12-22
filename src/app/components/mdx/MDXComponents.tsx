@@ -7,6 +7,7 @@ import { highlightCode } from "@/app/utils/modules/shiki";
 import { slugify } from "@/app/utils";
 import LinkComponent from "../ui/LinkComponent";
 import Logo from "../ui/Logo";
+import Image from "../ui/Image";
 
 type MDXComponents = ComponentProps<typeof MDXRemote>["components"];
 
@@ -36,6 +37,7 @@ export const mdxComponents: MDXComponents = {
   pre: Pre,
   LinkComponent,
   Logo,
+  Image,
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
