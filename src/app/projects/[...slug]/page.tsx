@@ -31,6 +31,12 @@ export default async function Post(props: Params) {
 
   return (
     <main>
+      <h1>{post.title}</h1>
+      <p>
+        <span>{post.date}</span>
+        <span> • </span>
+        <span>{post.duration}</span>
+      </p>
       <PostBody post={post} />
       <MoveTop />
     </main>

@@ -15,7 +15,7 @@ const getSlug = async (props: Params) => {
   const slug = Array.isArray(params.slug) ? params.slug.join("/") : params.slug;
 
   // 根据 slug 从本地 Markdown/MDX 文件中读取文章
-  const post = getPostBySlug(join("blog/", slug));
+  const post = getPostBySlug(join("others/", slug));
 
   // 如果找不到对应文章，则返回 404 页面
   if (!post) {
@@ -31,6 +31,12 @@ export default async function Post(props: Params) {
 
   return (
     <main>
+      <h1>{post.title}</h1>
+      <p>
+        <span>{post.date}</span>
+        <span> • </span>
+        <span>{post.duration}</span>
+      </p>
       <PostBody post={post} />
       <MoveTop />
     </main>
