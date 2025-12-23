@@ -45,7 +45,7 @@ export default function BlogContainer({ posts }: Props) {
         {list &&
           list.map((item: PostListItem) => {
             return (
-              <div key={item.year}>
+              <div key={item.year} className="slide-enter">
                 <div className="h-12" />
                 <div className="mt-10 relative">
                   <StrokeText text={item.year} />

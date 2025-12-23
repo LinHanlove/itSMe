@@ -258,3 +258,28 @@ html:not(.dark) [img-dark] {
 .dark::view-transition-new(root) {
   z-index: 9999;
 }
+
+.flow-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+
+  stroke: rgba(99, 102, 241, 0.35);
+  stroke-width: 1;
+  fill: none;
+
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+
+  mask-image: radial-gradient(circle at 50% 50%, transparent 20%, black 65%);
+}
+
+/* 暗色模式 */
+.dark .flow-bg {
+  stroke: rgba(148, 163, 255, 0.5);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+}

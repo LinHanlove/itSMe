@@ -12,6 +12,8 @@ import Header from "./components/Layout/Header";
 import Container from "./components/Layout/Container";
 import Footer from "./components/Layout/Footer";
 import { TargetCursor } from "./components/ui/TargetCursor";
+import SlideEnterController from "./components/Layout/SlideEnterController";
+import Background from "./components/ui/Background";
 
 // 使用 Next.js 内置的 Inter 字体
 const inter = Inter({ subsets: ["latin"] });
@@ -89,6 +91,8 @@ export default function RootLayout({
           "bg-white text-black dark:bg-[var(--c-bg)] dark:text-[var(--theme)]"
         )}
       >
+        <SlideEnterController />
+        <Background />
         <main>
           <Header />
           <Container>
