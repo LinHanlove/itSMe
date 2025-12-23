@@ -8,7 +8,7 @@ const StrokeTextComponents = styled.span`
 
 export default function StrokeText({ text }: { text: string }) {
   return (
-    <StrokeTextComponents className="text-9xl text-transparent absolute -left-12 -top-16 font-bold t opacity-10">
+    <StrokeTextComponents className="text-9xl text-transparent absolute -left-2 -top-16 font-bold t opacity-10">
       {text}
     </StrokeTextComponents>
   );

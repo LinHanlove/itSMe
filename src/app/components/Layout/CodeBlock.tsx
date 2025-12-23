@@ -45,8 +45,9 @@ export default function CodeBlock({ html, language }: Props) {
             bg-white text-neutral-700
             dark:bg-neutral-700/80 dark:text-neutral-200
             backdrop-blur
-            opacity-0 group-hover:opacity-100
+            sm:opacity-0 group-hover:opacity-100
             transition
+
           "
         >
           {label}
@@ -66,7 +67,7 @@ export default function CodeBlock({ html, language }: Props) {
               ? "bg-emerald-600 text-white"
               : "bg-neutral-800/80 text-white"
           }
-          opacity-0 group-hover:opacity-100
+          sm:opacity-0 sm:group-hover:opacity-100
         `}
       >
         {copied ? (

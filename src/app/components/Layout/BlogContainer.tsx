@@ -56,18 +56,14 @@ export default function BlogContainer({ posts }: Props) {
                         href={post.slug}
                         className="posts-list-item  h-5  my-4 hover:opacity-90 cursor-pointer flex items-end"
                       >
-                        <div className="flex items-center py-2 gap-x-2 cursor-target">
-                          <span className="text-base leading-none">
+                        <div className="flex items-center py-2 gap-x-1 cursor-target">
+                          <span className="text-base leading-none truncate">
                             {post.title}
                           </span>
-                          <div className="h-full ml-4 flex items-end gap-x-2 opacity-50">
-                            <span className="text-sm leading-none">
-                              {post.month}
-                            </span>
-                            <span className="text-sm leading-none">·</span>
-                            <span className="text-sm leading-none">
-                              {post.duration}
-                            </span>
+                          <div className="h-full ml-4 flex items-end gap-x-1 opacity-50 text-xs leading-none shrink-0">
+                            <span>{post.month}</span>
+                            <span>·</span>
+                            <span>{post.duration}</span>
                           </div>
                         </div>
                       </Link>
